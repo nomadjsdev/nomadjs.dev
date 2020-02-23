@@ -2,17 +2,33 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import { graphql, Link } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
-// import Img from 'gatsby-image'
+import styled from 'styled-components'
 
 import { Layout } from '../components/Layout'
 
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
+import spaces from '../styles/spaces'
+
+const UpdatedDate = styled.span`
+  font-size: 0.8em;
+`
+
+const Content = styled.div`
+  padding: ${spaces.standardSpacing} 0;
+`
+
+const LinkContainer = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin: ${spaces.standardSpacing} 0;
+`
+
 export default ({ data, pageContext }) => {
   const { title, siteUrl } = useSiteMetadata()
   const { frontmatter, body } = data.mdx
   const { previous, next } = pageContext
-  // let featuredImgFluid = frontmatter.featuredImage.childImageSharp.fluid
 
   return (
     <Layout>
@@ -23,34 +39,42 @@ export default ({ data, pageContext }) => {
         <link rel='canonical' href={`${siteUrl}/${frontmatter.slug}`} />
       </Helmet>
       <h1>{frontmatter.title}</h1>
-      <p>First published: {frontmatter.date}</p>
-      {frontmatter.updated && <p>Updated: {frontmatter.updated}</p>}
-      {/* <Img fluid={featuredImgFluid} /> */}
-      <MDXRenderer>{body}</MDXRenderer>
-      {previous === false ? null : (
-        <React.Fragment>
-          {previous && (
-            <span>
-              Previous:
-              <Link to={previous.frontmatter.slug}>
-                <p>{previous.frontmatter.title}</p>
-              </Link>
-            </span>
-          )}
-        </React.Fragment>
-      )}
-      {next === false ? null : (
-        <React.Fragment>
-          {next && (
-            <span>
-              Next:
-              <Link to={next.frontmatter.slug}>
-                <p>{next.frontmatter.title}</p>
-              </Link>
-            </span>
-          )}
-        </React.Fragment>
-      )}
+      <p>
+        {frontmatter.date}{' '}
+        {frontmatter.updated && (
+          <UpdatedDate>(Updated {frontmatter.updated})</UpdatedDate>
+        )}
+      </p>
+
+      <Content>
+        <MDXRenderer>{body}</MDXRenderer>
+      </Content>
+      <LinkContainer>
+        {previous === false ? null : (
+          <React.Fragment>
+            {previous && (
+              <span>
+                <Link to={previous.frontmatter.slug}>
+                  <p>&larr; {previous.frontmatter.title}</p>
+                </Link>
+              </span>
+            )}
+            {!previous && <span>&nbsp;</span>}
+          </React.Fragment>
+        )}
+        {next === false ? null : (
+          <React.Fragment>
+            {next && (
+              <span>
+                <Link to={next.frontmatter.slug}>
+                  <p>{next.frontmatter.title} &rarr;</p>
+                </Link>
+              </span>
+            )}
+            {!next && <span>&nbsp;</span>}
+          </React.Fragment>
+        )}
+      </LinkContainer>
     </Layout>
   )
 }
@@ -61,18 +85,10 @@ export const query = graphql`
       body
       frontmatter {
         title
-        date(formatString: "YYYY MMMM Do")
+        date(formatString: "YYYY/MM/DD")
         slug
-        updated(formatString: "YYYY MMMM Do")
+        updated(formatString: "YYYY/MM/DD")
       }
     }
   }
 `
-
-// featuredImage {
-//   childImageSharp {
-//     fluid(maxWidth: 800) {
-//       ...GatsbyImageSharpFluid
-//     }
-//   }
-// }

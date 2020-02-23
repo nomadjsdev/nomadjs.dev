@@ -4,6 +4,7 @@ import { graphql, Link } from 'gatsby'
 import styled from 'styled-components'
 
 import { Layout } from '../components/Layout'
+import { Profile } from '../components/Profile'
 
 import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
@@ -12,7 +13,7 @@ const IndexWrapper = styled.main``
 const PostWrapper = styled.div``
 
 export default ({ data }) => {
-  const { title, description, siteUrl } = useSiteMetadata()
+  const { title, description, siteUrl, authorName } = useSiteMetadata()
   return (
     <Layout>
       <Helmet>
@@ -20,6 +21,7 @@ export default ({ data }) => {
         <link rel='canonical' href={siteUrl} />
         <meta name='description' content={description} />
       </Helmet>
+      <Profile authorName={authorName} siteDescription={description} />
       <IndexWrapper>
         {data.allMdx.nodes.map(({ id, excerpt, frontmatter }) => (
           <PostWrapper key={id}>
@@ -46,7 +48,7 @@ export const query = graphql`
         excerpt(pruneLength: 250)
         frontmatter {
           title
-          date(formatString: "YYYY MMMM Do")
+          date(formatString: "YYYY/MM/DD")
           slug
         }
       }

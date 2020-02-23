@@ -1,13 +1,13 @@
 const siteMetadata = {
-  title: `nomadJS.dev`,
+  title: `< nomadJSdev />`,
   description: `Code and photos from a backpacker.`,
   image: ``,
   siteUrl: `https://nomadjs.dev`,
   siteLanguage: `en-GB`,
   siteLocale: `en_gb`,
-  twitterUsername: `@nomadjsdev`,
-  instagramUsername: `nomadjsdev`,
   githubUsername: `nomadjsdev`,
+  instagramUsername: `nomadjsdev`,
+  twitterUsername: `nomadjsdev`,
   authorName: `James Stone`
 }
 

@@ -15,7 +15,7 @@ const UpdatedDate = styled.span`
 `
 
 const Content = styled.div`
-  padding: ${spaces.standardSpacing} 0;
+  margin: ${spaces.standardSpacing} 0;
 `
 
 const LinkContainer = styled.div`

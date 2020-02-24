@@ -36,6 +36,13 @@ module.exports = {
             options: {
               maxWidth: 1200
             }
+          },
+          {
+            resolve: 'gatsby-remark-external-links',
+            options: {
+              target: '_blank',
+              rel: 'nofollow noopener noreferrer'
+            }
           }
         ]
       }
@@ -43,6 +50,14 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: { path: `${__dirname}\\src\\posts`, name: `posts` }
+    },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: 'UA-156433619-1',
+        anonymize: true,
+        respectDNT: true
+      }
     }
   ]
 }

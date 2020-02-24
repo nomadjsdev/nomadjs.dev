@@ -1,0 +1,30 @@
+---
+title: CRA + RTK = template
+date: 2020-01-02
+published: true
+excerpt: git clone for easy auth and redux setup
+slug: cra-rtk
+---
+
+> Almost an "automate the boring things" post
+
+I make two types of web app:
+
+1. Doesn't need authentication on the backend
+2. Makes me want to abandon front-end development forever
+
+Adding authentication to an app can be pretty painful, especially if it's not
+your area of expertise. It's certainly something I struggle with frequently, and
+the available tutorials can get pretty long. Far too long to go through each
+time.
+
+So, for little apps which still need secure login, why rebuild the wheel each
+time? (I rebuilt the wheel at least 12 times before making this template)
+
+**CRA-RTK** ([github](https://github.com/nomadjsdev/cra-rtk)) is a template
+based on Create-React-App which includes Google Firebase for authentication and
+Redux-Toolkit for handling state. It also has Formik (though this will get
+replaced with `react-hook-form` next time I update versions), React Router,
+ESLint (using the AirBnB rules) and Prettier.
+
+Basically all the stuff I set up each time I start a new project.

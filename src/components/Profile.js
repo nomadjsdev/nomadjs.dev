@@ -15,14 +15,18 @@ const ProfileImg = styled.img`
   margin-right: 1rem;
 `
 
+const ProfileText = styled.p`
+  margin: 0.5em 0;
+`
+
 export const Profile = ({ authorName, siteDescription }) => (
   <Container>
     <div>
       <ProfileImg src={profileImg} alt='James' />
     </div>
     <div>
-      <p>{authorName}</p>
-      <p>{siteDescription}</p>
+      <ProfileText>{authorName}</ProfileText>
+      <ProfileText>{siteDescription}</ProfileText>
     </div>
   </Container>
 )

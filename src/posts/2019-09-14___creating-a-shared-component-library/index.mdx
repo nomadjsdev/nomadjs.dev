@@ -1,0 +1,141 @@
+---
+title: Creating a private-ish component library
+date: 2019-09-14
+published: true
+excerpt: Sharing components between two different projects using git
+slug: creating-a-shared-component-library
+---
+
+import { Link } from 'gatsby'
+
+One of my current projects (<Link to="/current-projects">I have a few</Link>) is
+divided into two separate repositories - one app for users, another for admin.
+Both use components which need to look identical, to ensure that layouts on the
+user app (which are created in the admin app) are correct.
+
+There are a few ways this can be achieved:
+
+### Manually copy component code between the two repositories
+
+We're not monsters, and this isn't the dark ages. This option is a hard pass.
+
+### Create an npm package and publish it
+
+A better option, and if the component library was more generalised this is
+probably the way I'd choose to go.
+
+### Create a third repository and install directly into the other projects
+
+Now we're talking. This separates our components into a single source of truth
+so we don't have to edit in more than one place, and we don't have to go through
+the hassle of creating an NPM package.
+
+## Where to start
+
+To make things simple, get started with `Create-React-App`. Sure, you won't need
+all the functionality it offers, but it handles all the initial setup for you
+and you can prune the unnecessary parts later.
+
+Quick tip: try to use a distinctive name for your library, to avoid package name
+clashes in your other projects. `my-shared-library` is probably not a great
+name!
+
+```bash
+yarn create react-app my-shared-library
+# or
+npx create-react-app my-shared-library
+# (I'll be using yarn from now on)
+```
+
+## Add your components (and style them)
+
+There's a few handy libraries you may want to use for this:
+
+```bash
+yarn add --dev react-styleguidist
+yarn add prop-types styled-components
+```
+
+[Styleguidist](https://react-styleguidist.js.org/) is great for creating living
+style guides for component libraries.
+
+Edit your `package.json` scripts:
+
+```json
+"scripts": {
+  "start": "npx styleguidist server",
+  "build": "npx styleguidist build",
+},
+```
+
+And create a `README.md` in each of your component directories showing different
+variations of the component
+
+````markdown
+Basic button
+
+```js
+<Button>Button</Button>
+```
+
+Large button
+
+```js
+<Button size='large'>Button</Button>
+```
+````
+
+[prop-types](https://www.npmjs.com/package/prop-types) is great for providing
+prop hints when using the component
+
+```javascript
+Button.defaultProps = {
+  size: 'regular'
+}
+
+Button.propTypes = {
+  size: PropTypes.oneOf(['regular', 'large'])
+}
+```
+
+And [styled-components](https://styled-components.com/) is a great way of
+providing styling
+
+```javascript
+export const StyledButton = styled.button`
+  border: none;
+  background: hotpink;
+  border-radius: 4px;
+  color: white;
+  padding: 10px;
+`
+```
+
+**NOTE** If you use styled-components with Styleguidist you'll need to identify
+the component export using JSDoc notation, otherwise Styleguidist will try to
+use the styled-component items
+
+```javascript
+/** @component */
+export default Button
+```
+
+## Add exports to your main `index.js`
+
+```javascript
+export { default as Button } from './Components/Button'
+```
+
+## Push to your remote, and install in your other projects
+
+```bash
+yarn add https://path-to-my-shared-library-repo
+```
+
+## Profit!
+
+You can use the components in your other projects now
+
+```javascript
+import { Button } from 'my-shared-library'
+```

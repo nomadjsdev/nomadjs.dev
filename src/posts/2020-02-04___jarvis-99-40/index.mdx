@@ -1,0 +1,154 @@
+---
+title: Rebuilding Jarvis 99-40
+date: 2020-02-04
+published: true
+excerpt: Jarvis is dead - long live Jarvis!
+slug: jarvis-99-40
+---
+
+If you know what Jarvis is all about, you can probably skip this first section.
+For a quick intro, read on!
+
+## What is Jarvis 99-40?
+
+The inspiration for Jarvis came in
+[a post](https://old.reddit.com/r/DestinyTheGame/comments/72q7k7/help_wanted_web_app_developement_creating_visual/)
+made by [Maverick](https://old.reddit.com/user/M4V3R1C8) on the
+`/r/DestinyTheGame` subreddit on 2017-09-27.
+
+Players of the video game Destiny 2 who are Deaf or Hard of Hearing were
+struggling with a piece of end-game content which seemed to be designed with
+voice communication in mind. Maverick was seeking help creating a system which
+aimed to make these encounters slightly easier, as players were currently
+relying on in-game emotes, Discord, or signing via Skype.
+
+This system was launched as Jarvis 99-40, and allowed players to communicate
+using symbols on a webpage which update in realtime for every player in the
+session. All the layouts so far have been designed by Maverick.
+
+## The release history of Jarvis
+
+The `Alpha` release of Jarvis was on 2017-10-11, and was originally written in
+PHP using the Laravel framework, backed with a MariaDB database and a websocket
+server for handling the realtime communication. At the time I was using PHP
+extensively, and wanted to both learn more about Laravel and use a language I
+could iterate quickly with.
+
+This release went well enough as a test, but Laravel quickly proved to be more
+of a hindrance than a help. So I migrated the codebase.
+
+The `Beta` release of Jarvis was on 2018-01-18 and was also written in PHP,
+though without a main framework. It made use of the Huge authentication
+framework by Panique and the same websocket server as the Alpha. As the user
+authentication method changed (along with the database behind it) this required
+users to re-register. Kind of a pain in the ass, but unfortunately we're not
+done yet.
+
+The `Gamma` release of Jarvis is currently being tested, and is a complete
+rewrite to ReactJS, using Google's Firebase Authentication to handle users and
+Firebase Realtime Database to handle the realtime communication in place of the
+websocket server. This means that I won't have to run a websocket instance on my
+server which makes maintenance and server migration for other apps a bit easier
+to manage, and should also provide a more stable and smooth deployment process
+for new releases as well as slightly faster communication between player
+sessions.
+
+Moving authentication processing out to a third party service like Firebase
+means that if the main codebase ever gets migrated again, user accounts will
+remain.
+
+The main motivation behind the latest migration is moving to a more supportable
+ecosystem with automated deployments, which will in turn allow for simpler
+collaboration. The current `Beta` version makes it difficult to manage
+collaboration, and hopefully the newer build will prove better in the long term.
+
+This new setup also allows for new encounters and layouts to be created
+dynamically, rather than being hard-coded. Later down the line we'll be able to
+authorise certain accounts as editors who can build their own layouts.
+
+## So what does all this mean for current users?
+
+If you want to create new sessions for a game, you'll need to register a new
+account. Sorry about that. This will (unless Google shuts down Firebase Auth) be
+the last time that re-registering is required - I really don't want to rewrite
+the authentication system again!
+
+However, if you only want to join a session there's now **no need to register**!
+Just pick a temporary username and enter the session code and you'll connect.
+This is something that wasn't really possible with the `Beta` version and was
+one of the main drivers for rewriting to React.
+
+Existing user accounts from the `Beta` service will follow the user accounts
+from the Alpha and be deleted with extreme prejudice. Once the `Gamma` version
+is up and running there will be no data kept from the `Beta` other than
+historical (anonymous) usage statistics.
+
+## Any new features appearing?
+
+For now the only new feature is being able to join sessions without registering.
+There are a few other new features lined up though; an option to create a
+permanent session ID, voice-to-action, personalised keyboard bindings, clan
+spaces, being able to assign roles within game sessions, and a few more.
+
+## Any features disappearing?
+
+A few, for now.
+
+- Text-to-audio is temporarily disabled
+- Keyboard bindings are temporarily disabled
+- Chat is temporarily disabled
+- Encounter instructions have been removed
+
+All these features will return, but my focus will be on ensuring the new system
+is stable and fast enough, and bringing new encounters to Jarvis.
+
+## When are all these features returning?
+
+Dates to be confirmed. Following the example of `react-beautiful-dnd`, I won't
+be shipping new features if there are any reported bugs or issues outstanding.
+
+A loose idea of new release order:
+
+- v1.0 - the `Gamma` release
+- v1.1 - previously included features like static keyboard bindings, chat, etc.
+  coming ASAP
+- v1.2 - permanent session IDs, assign roles
+- v1.3 - clan spaces
+- v1.4 - personalised key bindings
+- v1.5 - 1.xx - other features if necessary
+- v2.0 - new games added
+
+From v1.2 onwards the order is up for debate as new features are thought up or
+priorities re-assessed.
+
+## How much will the all-shiny-new Jarvis cost to use?
+
+The same as the current version: Zip. Nada. Nothing. Free (as in beer).
+
+I'm committed to keeping all the essential features of Jarvis free for everyone.
+
+If server costs get out of control I may implement some of the extra features
+like clan spaces behind a donation-only account level, but I would prefer to
+have all features free for everyone. I would rather set up optional donations
+rather than buy-in features.
+
+In any case, changes will be communicated well in advance, with a chance for
+feedback.
+
+There will never be adverts on Jarvis 99-40, because adverts suck. Seriously, go
+get uBlock Origin for all your browsers (even mobile Firefox) and never watch a
+crappy advert on YouTube ever again.
+
+## What's with the name?
+
+In Destiny, robot frames with the designation '99-40' are simple helper-bots.
+And when it comes to helper-bots, who could be more helpful than Jarvis?
+
+Also I suck at naming things.
+
+## Any other questions or comments?
+
+Head to the subreddit [`/r/Jarvis9940`](https://old.reddit.com/r/jarvis9940), or
+[message me on Reddit](https://old.reddit.com/message/compose/?to=ItchySensation).
+I'm currently travelling the world and internet access can be intermittent, but
+I'll be checking as often as I can get access.

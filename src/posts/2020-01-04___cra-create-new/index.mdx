@@ -1,0 +1,39 @@
+---
+title: 'VSCode extension: CRA Create New'
+date: 2020-01-04
+published: true
+excerpt: For creating new components in React
+slug: cra-create-new
+---
+
+import { Link } from 'gatsby'
+
+> Another <Link to="/automate-the-boring-things">"automate the boring
+> things"</Link> extension
+
+I ran a quick test and it seems that I spend roughly 18 hours every single day
+creating new `View` or `Component` files in React apps.
+
+So; **CRA Create New**
+([marketplace](https://marketplace.visualstudio.com/items?itemName=nomadjsdev.cra-create-new) -
+[github](http://localhost:3000/current-projects)). Again, very opinionated (I
+built it for me, after all) all it does is create a directory, `<Name>` with an
+`index.js` file which exports from `<Name>.js` and templates this with a simple
+functional component.
+
+```javascript
+import React from 'react'
+
+const Name = () => {
+  return (
+    <React.Fragment>
+      <h1>Name</h1>
+    </React.Fragment>
+  )
+}
+
+export default Name
+```
+
+Super simple, but saves me a tonne of time and a good starting place for more
+learning and improvement later on.

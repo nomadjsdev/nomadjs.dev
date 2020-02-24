@@ -11,8 +11,8 @@ export const Pre = styled.pre`
   border-radius: 3px;
 
   & .token-line {
-    line-height: 1.3em;
-    height: 1.3em;
+    line-height: 1.4em;
+    height: 1.4em;
   }
   font-family: 'Courier New', Courier, monospace;
 `

@@ -10,7 +10,21 @@ import { useSiteMetadata } from '../hooks/useSiteMetadata'
 
 const IndexWrapper = styled.main``
 
-const PostWrapper = styled.div``
+const PostWrapper = styled.div`
+  margin-bottom: 2em;
+`
+
+const Title = styled.h1`
+  margin-bottom: 0.5em;
+`
+
+const Updated = styled.span`
+  font-size: 0.8em;
+`
+
+const Exceprt = styled.p`
+  margin-top: 0.3em;
+`
 
 export default ({ data }) => {
   const { title, description, siteUrl, authorName } = useSiteMetadata()
@@ -26,10 +40,13 @@ export default ({ data }) => {
         {data.allMdx.nodes.map(({ id, excerpt, frontmatter }) => (
           <PostWrapper key={id}>
             <Link to={frontmatter.slug}>
-              <h1>{frontmatter.title}</h1>
+              <Title>{frontmatter.title}</Title>
             </Link>
-            <p>{frontmatter.date}</p>
-            <p>{excerpt}</p>
+            <span>{frontmatter.date}</span>
+            {frontmatter.updated && (
+              <Updated> (updated {frontmatter.updated})</Updated>
+            )}
+            <Exceprt>{excerpt}</Exceprt>
           </PostWrapper>
         ))}
       </IndexWrapper>
@@ -50,6 +67,7 @@ export const query = graphql`
           title
           date(formatString: "YYYY/MM/DD")
           slug
+          updated(formatString: "YYYY/MM/DD")
         }
       }
     }

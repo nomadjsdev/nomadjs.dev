@@ -33,7 +33,7 @@ export const Footer = ({ github, instagram, twitter }) => (
         Instagram
       </a>
     </Element>
-    {/* <Element>
+    <Element>
       <a
         href={`https://twitter.com/${twitter}`}
         target='_blank'
@@ -41,6 +41,6 @@ export const Footer = ({ github, instagram, twitter }) => (
       >
         Twitter
       </a>
-    </Element> */}
+    </Element>
   </Container>
 )
